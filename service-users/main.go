@@ -5,7 +5,6 @@ import (
   "github.com/labstack/echo/v4/middleware"
   "net/http"
   "service-users/graph"
-  "service-users/graph/generated"
 
   "github.com/99designs/gqlgen/graphql/handler"
   "github.com/99designs/gqlgen/graphql/playground"
@@ -21,7 +20,7 @@ func main() {
     return c.String(http.StatusOK, "Welcome!")
   })
 
-  srv := handler.NewDefaultServer(generated.NewExecutableSchema(generated.Config{Resolvers: &graph.Resolver{}}))
+  srv := handler.NewDefaultServer(graph.NewExecutableSchema(graph.Config{Resolvers: &graph.Resolver{}}))
   e.POST("/query", func(c echo.Context) error {
     srv.ServeHTTP(c.Response(), c.Request())
     return nil
